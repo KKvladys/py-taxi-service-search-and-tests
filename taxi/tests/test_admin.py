@@ -6,13 +6,13 @@ from django.urls import reverse
 class AdminTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.adin_user = get_user_model().objects.create_superuser(
+        self.admin_user = get_user_model().objects.create_superuser(
             username="admin",
             password="12345",
             license_number="ADM12345"
         )
 
-        self.client.force_login(self.adin_user)
+        self.client.force_login(self.admin_user)
         self.driver = get_user_model().objects.create_user(
             username="driver",
             password="test password",
@@ -37,7 +37,7 @@ class AdminTests(TestCase):
         res = self.client.get(url)
         self.assertContains(res, self.driver.license_number)
 
-    def test_driver_create_new_fildsets_listed(self):
+    def test_driver_create_new_fieldsets_listed(self):
         """
         Test check driver first_name, last_name license_number
         is in display on driver add admin page

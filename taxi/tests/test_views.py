@@ -126,7 +126,7 @@ class PrivateCarTest(TestCase):
         )
         self.client.force_login(self.user)
 
-    def test_loggin_required_car_list(self):
+    def test_login_required_car_list(self):
         manufacturer = Manufacturer.objects.create(
             name="test name",
             country="test country"
@@ -140,7 +140,7 @@ class PrivateCarTest(TestCase):
             list(res.context["car_list"]),
             list(cars)
         )
-        self.assertTemplateUsed("taxi:car-list")
+        self.assertTemplateUsed(res, "taxi/car_list.html")
 
     def test_create_car(self):
         manufacturer = Manufacturer.objects.create(
@@ -160,7 +160,7 @@ class PrivateCarTest(TestCase):
 
 
 class PublicDriverTest(TestCase):
-    def test_loggin_required_car_list(self):
+    def test_login_required_driver_list(self):
         res = self.client.get(DRIVER_URL)
         self.assertNotEqual(res.status_code, 200)
 
